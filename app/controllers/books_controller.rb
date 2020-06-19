@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
+  before_action :correct_user, only: [:edit]
 
   def show
   	@book = Book.find(params[:id])
@@ -19,6 +21,7 @@ class BooksController < ApplicationController
   	if @book.save #入力されたデータをdbに保存する。
   		redirect_to book_path(@book.id), notice: "successfully created book!"#保存された場合の移動先を指定。
   	else
+      flash[:notice] = "error"
   		render :index
   	end
   end
