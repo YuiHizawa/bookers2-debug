@@ -9,6 +9,17 @@
 			<td>introduction</td>
 			<td><%= user.introduction %></td>
 		</tr>
+		<tr>
+			<% unless current_user?(user) %>
+			  <td id="follow_form">
+			  <% if current_user.following?(user) %>
+			    <%= render 'unfollow',user:user %>
+			  <% else %>
+			    <%= render 'follow',user:user %>
+			  <% end %>
+			  </td>
+			<% end %>
+		</tr>
 	</tbody>
 </table>
 
